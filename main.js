@@ -8,20 +8,39 @@ const container = document.querySelector("#container");
 
 let myLibrary = [];
 
-function Book(author, title) {
-  this.id = crypto.randomUUID();
-  this.author = author;
-  this.title = title;
-  this.read = false;
+class Book {
+  read;
+  id;
+  constructor(author, title) {
+    this.author = author;
+    this.title = title;
+    this.read = false;
+    this.id = crypto.randomUUID();
+  }
+
+  hasRead = () => {
+    if (this.read) {
+      this.read = false;
+    } else {
+      this.read = true;
+    }
+  };
 }
 
-Book.prototype.hasRead = function () {
-  if (this.read) {
-    this.read = false;
-  } else {
-    this.read = true;
-  }
-};
+// function Book(author, title) {
+//   this.id = crypto.randomUUID();
+//   this.author = author;
+//   this.title = title;
+//   this.read = false;
+// }
+
+// Book.prototype.hasRead = function () {
+//   if (this.read) {
+//     this.read = false;
+//   } else {
+//     this.read = true;
+//   }
+// };
 
 function addToLibrary(book) {
   myLibrary.push(book);
