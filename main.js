@@ -12,7 +12,16 @@ function Book(author, title) {
   this.id = crypto.randomUUID();
   this.author = author;
   this.title = title;
+  this.read = false;
 }
+
+Book.prototype.hasRead = function () {
+  if (this.read) {
+    this.read = false;
+  } else {
+    this.read = true;
+  }
+};
 
 function addToLibrary(book) {
   myLibrary.push(book);
@@ -23,11 +32,15 @@ function appendBooks() {
   for (const obj of myLibrary) {
     const para = document.createElement("p");
     const btn = document.createElement("button");
+    const readBtn = document.createElement("button");
+    readBtn.textContent = "Read";
+    readBtn.classList.add("read");
     btn.classList.add("del");
     para.setAttribute("data-id", obj.id); // Use data-id for the book ID
     btn.textContent = "Remove";
     para.textContent = "Title: " + obj.title + ", Author: " + obj.author;
     para.appendChild(btn);
+    para.appendChild(readBtn);
     container.append(para);
   }
 }
@@ -47,6 +60,16 @@ container.addEventListener("click", (event) => {
     console.log("Button clicked!");
     deleteItem(event);
   }
+
+  if (event.target.classList.contains("read")) {
+    const id = event.target.parentElement.getAttribute("data-id");
+    for (const obj of myLibrary) {
+      if (obj.id === id) {
+        obj.hasRead();
+        console.log(obj.read);
+      }
+    }
+  }
 });
 
 function deleteItem(event) {
@@ -57,20 +80,3 @@ function deleteItem(event) {
   }
   myLibrary = myLibrary.filter((obj) => obj.id !== id); // Filter out the book
 }
-
-
-/*
-buttons.forEach((button) => {
-   if(button){
-    button.addEventListener('click', (event)=> {
-        console.log(event.target);
-    })
-   }
-  //button.addEventListener("click", (event) => deleteItem(event));
-});
-
-closeJs.addEventListener('click', (event)=>{
-    event.preventDefault();
-    dialog.close();
-});
-*/

@@ -8,6 +8,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 #books {
@@ -20,4 +21,11 @@ body {
 
 button {
     margin: 0 5px;
+}
+
+header {
+    margin: 25px auto;
+    font-size: 48px;
+    border: 1px solid transparent; 
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2); 
 }
